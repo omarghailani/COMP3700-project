@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reservation</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="Parking.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
+    <style>
+        
+
+        
+        
+
+        .parking-space {
+            position: relative;
+            overflow: hidden;
+            border: 1px solid black; 
+            transition: border-width 0.2s; 
+        }
+
+        .parking-image {
+            width: 150px;
+            height: 160px;
+            cursor: pointer;
+        }
+
+        .parking-number {
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 1.2em;
+        }
+
+        .parking-space:hover {
+            border-width: 5px; 
+        }
+
+        
+        #header-image {
+            width:100%;
+            height: auto;
+           
+        }
+    </style>
+</head>
+<body style="background-color: #EFDE53;">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: black;">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <a class="navbar-brand" href="#"><img src="p loogo3.png" style="height: 40px; margin-top: -8px;"></a>
+          </div>
+          <ul class="nav navbar-nav navbar-right" >
+            <li><a href="index.html">Home</a></li>
+            <li><a href="login.html">Log In</a></li>
+            <li class="active"><a href="parking.html">Reservation</a></li>
+            <li><a href="subscription.html">Subscription Plans</a></li>
+            <li><a href="AboutUs.html">About us</a></li>
+            <li><a href="ContactUs.html">Contact</a></li>
+          </ul>
+        </div>
+      </nav>
+    <div style="background-image: url(park2.jpg); background-size:cover ;background-position: center; align-items: center; justify-content: center; height: 300px">
+    </div>
+        
+
+
+
+<div class="container-fluid" style="background-color:#EFDE53; text-align: center;" >
+    <div style="margin-left: 150px; margin-right: 150px;">
+    </br>
+        <h4 style="color: #BD4D3B; ">Reservation Steps:</h4>
+          <p>1.Choose your location</p>
+          <p>2.Choose an available parking</p>
+          
+          <p>3.Enter your car details & time</p>
+          
+          <p>4.Checkout & Payment</p>
+          
+        
+    </div>
+</div>
+<div style="background-color: #419F9A;">
+<h4 style="color: white;">Reserve the parking you want :</h4>
+
+<div class="parking-container">
+    <div class="parking-space">
+        <img src="1.jpg" alt="Parking 1" class="parking-image" onclick="bookParking(1)">
+        <div class="parking-number"></div>
+    </div>
+    
+    <div class="parking-space">
+        <img src="2.jpg" alt="Parking 2" class="parking-image" onclick="bookParking(2)">
+        <div class="parking-number"></div>
+    </div>
+    
+    <div class="parking-space">
+        <img src="3.jpg" alt="Parking 3" class="parking-image" onclick="bookParking(3)">
+        <div class="parking-number"></div>
+    </div>
+    
+    <div class="parking-space">
+        <img src="4.jpg" alt="Parking 4" class="parking-image" onclick="bookParking(4)">
+        <div class="parking-number"></div>
+    </div>
+    
+    <div class="parking-space">
+        <img src="5.jpg" alt="Parking 5" class="parking-image" onclick="bookParking(5)">
+        <div class="parking-number"></div>
+    </div>
+    
+    <div class="parking-space">
+        <img src="6.jpg" alt="Parking 6" class="parking-image" onclick="bookParking(6)">
+        <div class="parking-number"></div>
+    </div>
+    
+    <div class="parking-space">
+        <img src="7.jpg" alt="Parking 7" class="parking-image" onclick="bookParking(7)">
+        <div class="parking-number"></div>
+    </div>
+    
+    <div class="parking-space">
+        <img src="8.jpg" alt="Parking 8" class="parking-image" onclick="bookParking(8)">
+        <div class="parking-number"></div>
+    </div>
+    
+    <div class="parking-space">
+        <img src="9.jpg" alt="Parking 9" class="parking-image" onclick="bookParking(9)">
+        <div class="parking-number"></div>
+    </div>
+    
+    <div class="parking-space">
+        <img src="10.jpg" alt="Parking 10" class="parking-image" onclick="bookParking(10)">
+        <div class="parking-number"></div>
+    </div>
+</div>
+<br>
+</div>
+
+
+<footer class="footer">
+    <div class="container-fluid,jumbotron text-center" style="background-color: black; color: white;">
+      <table class="table">
+        <tr>
+          <td><h5>Park Smarter</h5>   
+            <a href="aboutUS.html">About Us</a>  
+          </td>
+          <td>
+          <h5>Get Help</h5>
+            <a href="contactUS.html">Contact Us</a>
+          </td>
+          <td>
+            <h5>Follow Us</h5>
+          <div class="social-links">
+            <a href="https://chat.whatsapp.com/IR9qKmmcRpd1b3s1UGNqvG">Whatsapp</a></br>
+            <a href="https://www.instagram.com/3lmoyd/">Instagram</a></br>
+            <a href="https://github.com/3lmoyd/Park-Smarter.git">Github</a>
+          </div>
+        </td>
+        </tr>
+      </table>
+          
+        
+      
+    </div>
+</footer>
+</body>
+</html>
