@@ -12,6 +12,38 @@
         body{
             background-color:#EFDE53;
         }
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: grid;
+            gap: 15px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
      </style>
 </head>
 <body>
@@ -26,6 +58,8 @@
             <li><a href="login.html">Log In</a></li>
             <li><a href="parking.html">Reservation</a></li>
             <li class="active"><a href="subscription.html">Subscription Plans</a></li>
+            <li><a href="FunPage.html">Fun Game</a></li>
+
             <li><a href="AboutUs.html">About us</a></li>
             <li><a href="ContactUs.html">Contact</a></li>
           </ul>
@@ -74,7 +108,7 @@
                 Subscription valid for 4 months
             </li>
         </ul>
-        <h4 style="color: #BD4D3B;">$249</h4>
+        <h4 style="color: #BD4D3B;">$149</h4>
         </div>
 </br>
 </br>
@@ -96,6 +130,72 @@
 </br>
     </div>
   </div>
+
+  <div class="container">
+    <h3>Bill</h3>
+    <form id="calculatorForm">
+        <label for="itemName">Plan:</label>
+        <select name="itemName" size="1" id="itemName" required onchange="updatePrice()">
+          <option value="249">VIP plan</option>
+          <option value="149">Business Plan</option>
+          <option value="19">Personal Plan</option>
+      </select>
+      
+      <label for="itemPrice">Item Price:</label>
+      <input type="number" id="itemPrice" name="itemPrice" value="249" readonly required>
+
+       
+        <label for="quantity">Quantity:</label>
+        <input type="number" id="quantity" name="quantity" value="1" required>
+
+        <label for="customerAge">Customer Age:</label>
+        <input type="number" id="customerAge" name="customerAge" required>
+
+        <button type="button" onclick="calculateTotal()">Calculate Total</button>
+
+        <div id="result"></div>
+    </form>
+</div>
+
+<script>
+//To update the price of the plan depending what the user chooses
+function updatePrice() {
+                const itemName = $('#itemName').val();
+                $('#itemPrice').val(itemName);
+            }
+            function calculateTotal() {
+                // Retrieve values from the form
+                const itemName = $('#itemName').val();
+                const itemPrice = parseFloat($('#itemPrice').val());
+                const quantity = parseInt($('#quantity').val());
+                const customerAge = parseInt($('#customerAge').val());
+
+                //validation check
+                if (itemName === '' || isNaN(itemPrice) || isNaN(quantity) || isNaN(customerAge)) {
+                alert('Please fill in all the fields to calculate the total.');
+                  return;
+                }
+                // Base total calculation
+                let total = itemPrice * quantity;
+
+                // Apply discount for elderly customers (above 60 years old)
+                if (customerAge > 60) {
+                    // 10% discount for elderly customers
+                    total -= (0.1 * total);
+                }
+
+                // Display the result on the page
+                const resultDiv = $('#result');
+                resultDiv.html(`Total Price for the Plan: $${total.toFixed(2)}`);
+            }
+
+            // Event listener for the Calculate Total button
+            $('#calculateTotal').on('click', function () {
+                calculateTotal();
+            });
+        
+</script>
+
 
     <footer class="footer">
         <div class="container-fluid,jumbotron text-center" style="background-color: black; color: white;">

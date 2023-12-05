@@ -11,8 +11,64 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     
     <style>
-        
+      body{
+        background-color: #EFDE53;
+      }
+        #text-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            padding: 10px;
+            white-space: nowrap; /* Prevent text from wrapping */
+        }
+
+        #photo-gallery {
+            width: 50%;
+            height: 40vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .gallery-image {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            transition: opacity 1s ease-in-out;
+        }
+
     </style>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        // Function to update text and animation
+        function updateTextBanner() {
+            // Get current date and time
+            let currentDate = new Date().toLocaleDateString();
+            let currentTime = new Date().toLocaleTimeString();
+    
+            // Display welcome message along with current date and time
+            let welcomeMessage = `Welcome to Park Smarter website! Today is ${currentDate}, and the time is ${currentTime}`;
+    
+            // Update the text content of the banner
+            textBanner.textContent = welcomeMessage;
+    
+            // Animation: Move the banner from left to right
+            let currentPosition = 0;
+            setInterval(function () {
+                currentPosition += 1;
+                textBanner.style.left = currentPosition + 'px';
+            },16); // Adjust the interval for smoother or faster animation
+        }
+    
+        // Get the text banner element
+        let textBanner = document.getElementById('text-banner');
+    
+        // Call the updateTextBanner function
+        updateTextBanner();
+    });
+    </script>
 </head>
 <body>
 
@@ -26,11 +82,16 @@
                 <li><a href="login.html">Log In</a></li>
                 <li><a href="parking.html">Reservation</a></li>
                 <li><a href="subscription.html">Subscription Plans</a></li>
+                <li><a href="FunPage.html">Fun Game</a></li>
                 <li><a href="AboutUs.html">About us</a></li>
                 <li><a href="ContactUs.html">Contact</a></li>
               </ul>
             </div>
           </nav>
+
+
+          
+
 
           <div style="background-image: url('parkingforHome.jpeg'); text-align: center; background-size:cover ;background-position: center; align-items: center; justify-content: center; height: 300px; text-align: center;">
           </BR>
@@ -84,6 +145,48 @@
         </table>
       </br>
       </div>
+<div class="container-fluid" style="background-color: #EFDE53; height: 140px;">
+</br>
+<div style="margin-left: 150px; margin-right: 150px;">
+  <a href="FunPage.html"><button type="button" class="btn btn-danger btn-block" st>Fun Page</button></a>
+  <a href="AboutUs.html"><button type="button" class="btn btn-danger btn-block" st>Questionnaire Page</button></a>
+  <a href="subscription.html"><button type="button" class="btn btn-danger btn-block" st>Calculator Page</button></a>
+</div>
+</div>
+      <div style="background-color: #419F9A;">
+      <div class="container-fluid" id="photo-gallery" >
+        <!-- Gallery images -->
+        <img src="photogallery1.png" class="gallery-image" alt="Photo 1">
+        <img src="photogallery2.jpeg" class="gallery-image" alt="Photo 2">
+        <img src="photogallery3.jpg" class="gallery-image" alt="Photo 3">
+    </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const gallery = document.getElementById('photo-gallery');
+            const images = document.querySelectorAll('.gallery-image');
+    
+            let currentIndex = 0;
+    
+            function showImage(index) {
+                images.forEach((image, i) => {
+                    image.style.opacity = i === index ? 1 : 0;
+                });
+            }
+    
+            function rotateGallery() {
+                currentIndex = (currentIndex + 1) % images.length;
+                showImage(currentIndex);
+            }
+    
+            // Initial display
+            showImage(currentIndex);
+    
+            // Automatic rotation every 3 seconds
+            setInterval(rotateGallery, 3000);
+        });
+    </script>
 
       <div class="container-fluid" style="background-color:#EFDE53; " >
         <div style="margin-left: 150px; margin-right: 150px;">
@@ -130,6 +233,9 @@
       </div>
     </footer>
     
-  
+    <div id="text-banner">
+      <!-- Text content will be dynamically updated here -->
+  </div>
+
 </body>
 </html>

@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fun Page - Traffic Sign Game</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="FunGame.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+    <style>
+        body {
+            background-color: #EFDE53;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+        }
+
+        #game-container {
+            margin-top: 80px;
+            margin-bottom: 100px;
+            max-width: 400px;
+            padding: 0px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+        }
+
+        img {
+            max-width: 100%;
+            height: 300px;
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+        }
+
+        button {
+            padding: 12px 24px;
+            font-size: 16px;
+            margin: 8px;
+            cursor: pointer;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .green {
+            color: #4caf50;
+        }
+
+        .red {
+            color: #f44336;
+        }
+
+        #play-again {
+            display: none;
+            background-color: #3498db;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            padding: 12px 24px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: background-color 0.3s;
+        }
+
+        #play-again:hover {
+            background-color: #2980b9;
+        }
+    </style>
+</head>
+
+<body bgcolor="green">
+
+    <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: black;">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html"><img src="p loogo3.png"
+                        style="height: 40px; margin-top: -8px;"></a>
+            </div>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="login.html">Log In</a></li>
+                <li><a href="parking.html">Reservation</a></li>
+                <li><a href="subscription.html">Subscription Plans</a></li>
+                <li class="active"><a href="FunPage.html">Fun Game</a></li>
+                <li><a href="AboutUs.html">About us</a></li>
+                <li><a href="ContactUs.html">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div id="game-container" style="text-align: center;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+        <h1 style="color: #333;">Traffic Sign Game</h1>
+        <img id="traffic-sign" src="" alt="Traffic Sign">
+        <div>
+            <button data-option="0">Closed road</button>
+            <button data-option="1">Falling rocks</button>
+            <button data-option="2">No U turn</button>
+            <button data-option="3">Speed limit</button>
+            <button data-option="4">No Overtaking</button>
+        </div>
+        <div id="result"></div>
+        <button id="play-again">Play Again</button>
+    </div>
+
+    <script>
+
+        
+
+        $(document).ready(function () {
+            // Traffic signs data
+            const signs = [
+                { src: 'speed.png', correctOption: 3 },
+                { src: 'closed.jpg', correctOption: 0 },
+                { src: 'FALLINGrocks.png', correctOption: 1 },
+                { src: 'NoOver.jpg', correctOption: 4 },
+                { src: 'Nou.jpg', correctOption: 2 }
+                // Add more signs as needed
+            ];
+
+            // Current sign index
+            let currentSignIndex = 0;
+            // Counter for correct answers
+            let correctAnswers = 0;
+
+            // Function to initialize the game
+            function initializeGame() {
+                showRandomSign();
+            }
+
+            // Function to show a random traffic sign
+            function showRandomSign() {
+                const sign = signs[currentSignIndex];
+                $('#traffic-sign').attr('src', sign.src);
+            }
+
+            // Function to check the selected option
+            $('button[data-option]').on('click', function () {
+                const selectedOption = parseInt($(this).data('option'));
+                const sign = signs[currentSignIndex];
+                const resultElement = $('#result');
+                const playAgainButton = $('#play-again');
+
+                if (selectedOption === sign.correctOption) {
+                    resultElement.text('Correct! ').addClass('green');
+                    correctAnswers++;
+                } else {
+                    resultElement.text('Incorrect. ').addClass('red');
+                }
+
+                // Move to the next sign
+                currentSignIndex = (currentSignIndex + 1) % signs.length;
+
+                // Show the final result if all questions are answered
+                if (currentSignIndex === 0) {
+                    setTimeout(function () {
+                        showFinalResult();
+                        playAgainButton.show();
+                    }, 1500);
+                } else {
+                    // Show the next sign after a short delay
+                    setTimeout(function () {
+                        showRandomSign();
+                        resultElement.text('').removeClass();
+                    }, 1500);
+                }
+            });
+
+            // Function to show the final result
+            function showFinalResult() {
+                const resultElement = $('#result');
+                resultElement.text(`You answered ${correctAnswers} out of ${signs.length} questions correctly.`)
+                    .addClass('green');
+            }
+
+            // Function to play again
+            $('#play-again').on('click', function () {
+                currentSignIndex = 0;
+                correctAnswers = 0;
+                initializeGame();
+                resultElement.text('').removeClass();
+                $(this).hide();
+            });
+
+            // Initialize the game when the page loads
+            initializeGame();
+        });
+    </script>
+
+
+
+    <footer class="footer" style="position: absolute; top: 700px; width: 100%; margin-top: 100px;">
+        <div class="container-fluid,jumbotron text-center," style="background-color: black; color: white;">
+            <table class="table">
+                <tr>
+                    <td>
+                        <h5>Park Smarter</h5>
+                        <a href="aboutUS.html">About Us</a>
+                    </td>
+                    <td>
+                        <h5>Get Help</h5>
+                        <a href="contactUS.html">Contact Us</a>
+                    </td>
+                    <td>
+                        <h5>Follow Us</h5>
+                        <div class="social-links">
+                            <a href="https://chat.whatsapp.com/IR9qKmmcRpd1b3s1UGNqvG">Whatsapp</a><br>
+                            <a href="https://www.instagram.com/3lmoyd/">Instagram</a><br>
+                            <a href="https://github.com/3lmoyd/Park-Smarter.git">Github</a>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </footer>
+</body>
+
+</html>

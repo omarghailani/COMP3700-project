@@ -11,6 +11,32 @@
    
   <style>
     body{background-color:#EFDE53;}
+    .container {
+            max-width: 800px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: grid;
+            gap: 15px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
   </style>
 </head>
 <body>
@@ -24,6 +50,7 @@
             <li><a href="login.html">Log In</a></li>
             <li><a href="parking.html">Reservation</a></li>
             <li><a href="subscription.html">Subscription Plans</a></li>
+            <li><a href="FunPage.html">Fun Game</a></li>
             <li class="active"><a href="AboutUs.html">About us</a></li>
             <li><a href="ContactUs.html">Contact</a></li>
           </ul>
@@ -78,9 +105,80 @@ app and in-car.
     </ol>
   </div>
 
-</br>
-</br>
 
+
+<div class="container">
+  <h3>Feedback</h3>
+  <form id="questionnaireForm">
+      <label for="name">Your Name:</label>
+      <input type="text" id="name" name="name" required>
+
+      <label>Rate our service:</label>
+      <div>
+          <input type="radio" id="ratingExcellent" name="rating" value="Excellent" required>
+          <label for="ratingExcellent">Excellent</label>
+
+          <input type="radio" id="ratingGood" name="rating" value="Good">
+          <label for="ratingGood">Good</label>
+
+          <input type="radio" id="ratingAverage" name="rating" value="Average">
+          <label for="ratingAverage">Average</label>
+      </div>
+
+      <label>Choose areas of improvement:</label>
+      <div>
+          <input type="checkbox" id="improveSpeed" name="improvement" value="Speed">
+          <label for="improveSpeed">Speed</label>
+
+          <input type="checkbox" id="improveDesign" name="improvement" value="Design">
+          <label for="improveDesign">Design</label>
+
+          <input type="checkbox" id="improveContent" name="improvement" value="Content">
+          <label for="improveContent">Content</label>
+      </div>
+
+      <label for="comments">Additional Comments:</label>
+      <textarea id="comments" name="comments" rows="4"></textarea>
+
+      <button type="button" onclick="submitQuestionnaire()">Submit Feedback</button>
+  </form>
+</div>
+
+<script>
+  // Function to submit the questionnaire and perform validation
+  function submitQuestionnaire() {
+      const nameInput = document.getElementById('name');
+      const ratingInputs = document.querySelectorAll('input[name="rating"]:checked');
+      const improvementCheckboxes = document.querySelectorAll('input[name="improvement"]:checked');
+      const commentsTextarea = document.getElementById('comments');
+
+      // Validation for name (letters and spaces only)
+      const nameRegex = /^[a-zA-Z\s]+$/;
+      if (!nameRegex.test(nameInput.value)) {
+          alert('Please enter a valid name.');
+          return;
+      }
+
+      // Validation for at least one rating selected
+      if (ratingInputs.length === 0) {
+          alert('Please select a rating for our service.');
+          return;
+      }
+
+      // Validation for at least one improvement checkbox selected
+      if (improvementCheckboxes.length === 0) {
+          alert('Please select at least one area of improvement.');
+          return;
+      }
+
+      // Custom validation for textarea length
+      if (commentsTextarea.value.length > 200) {
+          alert('Comments should be less than 200 characters.');
+          return;
+      }
+      // If all validations pass, you can proceed with submitting the form
+      alert('Thank you for your feedback! Form submitted.');}
+</script>
 <footer class="footer">
     <div class="container-fluid,jumbotron text-center" style="background-color: black; color: white;">
       <table class="table">

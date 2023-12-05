@@ -6,12 +6,63 @@
     <title>contactUS</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
   
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
    
   <style>
     body{background-color:#EFDE53;}
+    #commentList {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        #commentList li {
+            background-color: #419F9A;
+            color: white;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 10px;
+            overflow-wrap: break-word; 
+            word-wrap: break-word; 
+        }
   </style>
+   <script>
+    var allComments = [];
+    //when the user submit the comment
+    function submitComment() {
+            var userName = document.getElementById('usr').value;
+            var userComment = document.getElementById('comment').value;
+            if (userName.trim() !== '' && userComment.trim() !== '') {
+                var commentList = document.getElementById('commentList');
+                var listItem = document.createElement('li');
+                listItem.textContent = userName + ': ' + userComment;
+                commentList.appendChild(listItem);
+
+                // Store the comment in the array
+                allComments.push(listItem.textContent);
+
+                // Clear input fields
+                document.getElementById('usr').value = '';
+                document.getElementById('comment').value = '';
+            }}
+        // Function to search comments
+        function searchComments() {
+            var searchQuery = document.getElementById('searchQuery').value.toLowerCase();
+            var commentList = document.getElementById('commentList');
+            commentList.innerHTML = ''; // Clear the current comments
+
+            // Filter and display matching comments
+            allComments.forEach(function(comment) {
+                if (comment.toLowerCase().includes(searchQuery)) {
+                    var listItem = document.createElement('li');
+                    listItem.textContent = comment;
+                    commentList.appendChild(listItem);
+                }
+            });
+        }
+</script>
+
 </head>
 <body>
     <nav class="navbar navbar-inverse navbar-fixed-top" style="background-color: black;">
@@ -24,6 +75,7 @@
             <li><a href="login.html">Log In</a></li>
             <li><a href="parking.html">Reservation</a></li>
             <li><a href="subscription.html">Subscription Plans</a></li>
+            <li><a href="FunPage.html">Fun Game</a></li>
             <li ><a href="AboutUs.html">About us</a></li>
             <li class="active"><a href="ContactUs.html">Contact</a></li>
           </ul>
@@ -54,30 +106,37 @@
     </ul>
   </div>
 </bR>
-<form method="post" action:"mailto:parkingsmarteroman@gmail.com">
-<div class="container-fluid" style="margin-left: 100px; margin-right: 100px;color: #BD4D3B;">
-  <div class="form-group">
-    <label for="usr">Name:</label>
-    <input type="text" class="form-control" id="usr" placeholder="Enter your user">
-  </div>
-  <div class="form-group">
-    <label for="email">Email:</label>
-    <input type="text" class="form-control" id="email" placeholder="Enter your email">
-  </div>
+<form>
+    <div ng-app="" class="container-fluid" style="margin-left: 100px; margin-right: 100px;color: #BD4D3B;">
+        <div class="form-group">
+            <label for="usr">Name:</label>
+            <input type="text" class="form-control" id="usr" placeholder="Enter your name" ng-model="name">
+        </div>
+        <p>Hi {{ name }} we appreciate your comment!</p>
+        <div class="form-group">
+            <label for="comment">Comment:</label>
+            <textarea class="form-control" rows="5" id="comment" placeholder="Enter your comment"></textarea>
+        </div>
 
-  <div class="form-group">
-    <label for="comment">Comment:</label>
-    <textarea class="form-control" rows="5" id="comment" placeholder="comment..."></textarea>
-  </div>
-
-  <div class="container-fluid">
-</br>
-<button type="button" class="btn btn-danger btn-block" st>Submit</button>
-</br>
-</br>
-</div>
-</div>
+        <div class="container-fluid">
+            <br>
+            <button type="button" class="btn btn-danger btn-block" onclick="submitComment()">Submit</button>
+            <br><br>
+        </div>
+    </div>
 </form>
+
+<div id="comments" class="container-fluid" style="margin-left: 100px; margin-right: 100px;color: #BD4D3B;">
+  <h4>Comments:</h4>
+  <input type="text" id="searchQuery" placeholder="Search Comments" oninput="searchComments()">
+</br>
+</br>
+  <ul class="container-fluid" id="commentList"></ul>
+</div>
+
+
+
+
 
 <footer class="footer">
     <div class="container-fluid,jumbotron text-center" style="background-color: black; color: white;">

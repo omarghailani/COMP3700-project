@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="Parking.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="reservation.js"></script>
+
     
     <style>
         
@@ -61,6 +63,8 @@
             <li><a href="login.html">Log In</a></li>
             <li class="active"><a href="parking.html">Reservation</a></li>
             <li><a href="subscription.html">Subscription Plans</a></li>
+            <li><a href="FunPage.html">Fun Game</a></li>
+
             <li><a href="AboutUs.html">About us</a></li>
             <li><a href="ContactUs.html">Contact</a></li>
           </ul>
@@ -72,7 +76,7 @@
 
 
 
-<div class="container-fluid" style="background-color:#EFDE53; text-align: center;" >
+<div class="container-fluid" style="background-color:#419F9A; text-align: center; color: white;" >
     <div style="margin-left: 150px; margin-right: 150px;">
     </br>
         <h4 style="color: #BD4D3B; ">Reservation Steps:</h4>
@@ -82,10 +86,44 @@
           <p>3.Enter your car details & time</p>
           
           <p>4.Checkout & Payment</p>
-          
-        
+  </br>
+  <h5 style="color: orange; font-weight: bold;">Click me :)</h5>
+  </br>
     </div>
 </div>
+
+<div class="container-fluid,jumbotron text-center">
+<h3>Add Reservation</h3>
+        <form id="addReservationForm">
+            <div class="form-group">
+                <label for="reservationId">Reservation ID:</label>
+                <input type="text" id="reservationId" name="reservationId" required>
+            </div>
+            <div class="form-group">
+                <label for="reservedBy">Reserved By:</label>
+                <input type="text" id="reservedBy" name="reservedBy" required>
+            </div>
+            <button type="button" onclick="addReservation()">Add Reservation</button>
+        </form></div>
+    <hr>
+<div class="container-fluid,jumbotron text-center">
+<h3>Reservations Information</h3>
+        <input type="text" id="reservationSearch" placeholder="Search Reservation" oninput="searchReservations()">
+        <table class="table" id="reservationsTable">
+            <thead>
+                <tr>
+                    <th>Reservation ID</th>
+                    <th>Reserved By</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Reservation information will be dynamically added here -->
+            </tbody>
+        </table>
+        </div>
+
+
+
 <div style="background-color: #419F9A;">
 <h4 style="color: white;">Reserve the parking you want :</h4>
 

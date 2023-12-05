@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bill Calculator</title>
+    <style>
+        /* Styles can be customized based on your design preferences */
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        form {
+            display: grid;
+            gap: 15px;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Bill Calculator</h1>
+        <form id="calculatorForm">
+            <label for="itemName">Item Name:</label>
+            <input type="text" id="itemName" name="itemName" required>
+
+            <label for="itemPrice">Item Price:</label>
+            <input type="number" id="itemPrice" name="itemPrice" required>
+
+            <label for="quantity">Quantity:</label>
+            <input type="number" id="quantity" name="quantity" value="1" required>
+
+            <label for="customerAge">Customer Age:</label>
+            <input type="number" id="customerAge" name="customerAge" required>
+
+            <button type="button" onclick="calculateTotal()">Calculate Total</button>
+
+            <div id="result"></div>
+        </form>
+    </div>
+
+    <script>
+        // Function to calculate the total based on user inputs
+        function calculateTotal() {
+            // Retrieve values from the form
+            const itemName = document.getElementById('itemName').value;
+            const itemPrice = parseFloat(document.getElementById('itemPrice').value);
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const customerAge = parseInt(document.getElementById('customerAge').value);
+
+            // Base total calculation
+            let total = itemPrice * quantity;
+
+            // Apply discount for elderly customers (above 60 years old)
+            if (customerAge > 60) {
+                // 10% discount for elderly customers
+                total -= (0.1 * total);
+            }
+
+            // Display the result on the page
+            const resultDiv = document.getElementById('result');
+            resultDiv.innerHTML = `Total for ${quantity} ${itemName}(s): $${total.toFixed(2)}`;
+        }
+    </script>
+</body>
+</html>
