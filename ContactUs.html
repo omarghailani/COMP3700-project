@@ -29,38 +29,78 @@
   </style>
    <script>
     var allComments = [];
-    //when the user submit the comment
-    function submitComment() {
+
+function displayComments(comments) {
+    var commentList = document.getElementById('commentList');
+    commentList.innerHTML = ''; // Clear the current comments
+
+    comments.forEach(function (comment) {
+        var listItem = document.createElement('li');
+        listItem.textContent = comment.name + ': ' + comment.comment;
+        commentList.appendChild(listItem);
+
+        // Store the comment in the array
+        allComments.push(listItem.textContent);
+    });
+}
+
+function fetchComments() {
+    // Use AJAX to fetch comments from the server
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'fetch_comments.php', true);
+
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            var comments = JSON.parse(xhr.responseText);
+            displayComments(comments);
+        }
+    };
+
+    xhr.send();
+}
+
+function submitComment() {
             var userName = document.getElementById('usr').value;
             var userComment = document.getElementById('comment').value;
+
             if (userName.trim() !== '' && userComment.trim() !== '') {
-                var commentList = document.getElementById('commentList');
-                var listItem = document.createElement('li');
-                listItem.textContent = userName + ': ' + userComment;
-                commentList.appendChild(listItem);
+                // Use AJAX to submit the form data
+                var xhr = new XMLHttpRequest();
+                xhr.open('POST', 'comments.php', true);
+                xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 
-                // Store the comment in the array
-                allComments.push(listItem.textContent);
+                xhr.onreadystatechange = function () {
+                    if (xhr.readyState === 4 && xhr.status === 200) {
+                        fetchComments();
+                    }
+                };
 
-                // Clear input fields
+                var formData = 'name=' + encodeURIComponent(userName) + '&comment=' + encodeURIComponent(userComment);
+                xhr.send(formData);
+
                 document.getElementById('usr').value = '';
                 document.getElementById('comment').value = '';
-            }}
-        // Function to search comments
-        function searchComments() {
-            var searchQuery = document.getElementById('searchQuery').value.toLowerCase();
-            var commentList = document.getElementById('commentList');
-            commentList.innerHTML = ''; // Clear the current comments
-
-            // Filter and display matching comments
-            allComments.forEach(function(comment) {
-                if (comment.toLowerCase().includes(searchQuery)) {
-                    var listItem = document.createElement('li');
-                    listItem.textContent = comment;
-                    commentList.appendChild(listItem);
-                }
-            });
+            }
         }
+        
+function searchComments() {
+    var searchQuery = document.getElementById('searchQuery').value.toLowerCase();
+    var commentList = document.getElementById('commentList');
+    commentList.innerHTML = ''; // Clear the current comments
+
+    // Filter and display matching comments for search
+    allComments.forEach(function (comment) {
+        if (comment.toLowerCase().includes(searchQuery)) {
+            var listItem = document.createElement('li');
+            listItem.textContent = comment;
+            commentList.appendChild(listItem);
+        }
+    });
+}
+
+// Fetch comments when the page loads
+fetchComments();
+        
 </script>
 
 </head>
@@ -106,21 +146,21 @@
     </ul>
   </div>
 </bR>
-<form>
-    <div ng-app="" class="container-fluid" style="margin-left: 100px; margin-right: 100px;color: #BD4D3B;">
+<form id='commentform' action="comments.php" method="post">
+    <div ng-app="" class="form-group, container-fluid" style="margin-left: 100px; margin-right: 100px;color: #BD4D3B;">
         <div class="form-group">
             <label for="usr">Name:</label>
-            <input type="text" class="form-control" id="usr" placeholder="Enter your name" ng-model="name">
+            <input type="text" class="form-control" id="usr" placeholder="Enter your name" ng-model="name" name="name" required>
         </div>
         <p>Hi {{ name }} we appreciate your comment!</p>
         <div class="form-group">
             <label for="comment">Comment:</label>
-            <textarea class="form-control" rows="5" id="comment" placeholder="Enter your comment"></textarea>
+            <textarea class="form-control" rows="5" id="comment" placeholder="Enter your comment" name="comment" required></textarea>
         </div>
 
         <div class="container-fluid">
             <br>
-            <button type="button" class="btn btn-danger btn-block" onclick="submitComment()">Submit</button>
+            <button type="submit" class="btn btn-danger btn-block" onclick="submitComment()">Submit</button>
             <br><br>
         </div>
     </div>
